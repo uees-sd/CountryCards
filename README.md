@@ -1,6 +1,7 @@
 # CountryCards
 
-Hector Fuentes
-Jose Valencia
-Dennys Aguirre
-Briggith Holgin
+## Listado de Integrantes
+- Hector Fuentes
+- Jose Valencia
+- Dennys Aguirre
+- Briggith Holgin
