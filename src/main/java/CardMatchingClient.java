@@ -74,23 +74,23 @@ public class CardMatchingClient {
     }
 
     private void startGame() {
-        try {
-            socket = new Socket("localhost", 8080);
-            System.out.println("Connected to server");
+    try {
+        socket = new Socket("localhost", 8080);
+        System.out.println("Connected to server");
 
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out = new PrintWriter(socket.getOutputStream(), true);
-            new CardMatchingGame();
+        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        out = new PrintWriter(socket.getOutputStream(), true);
+        CardMatchingGame cardMatchingGame = new CardMatchingGame(playerName); // Pass the playerName to the CardMatchingGame constructor
 
-            players = new ConcurrentHashMap<>();
-            movements = 0;
+        players = new ConcurrentHashMap<>();
+        movements = 0;
 
-            // Send player information to the server
-            out.println("PLAYER " + playerName);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // Send player information to the server
+        out.println("PLAYER " + playerName);
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+}
 
     public void sendCardFlip(int cardId) throws IOException {
         out.println("FLIP " + cardId);

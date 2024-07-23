@@ -22,8 +22,8 @@ import javax.swing.Timer;
 import static java.lang.Thread.sleep;
 
 public class CardMatchingGame extends JFrame implements  ActionListener {
-
     //Constantes
+    private String playerName;
         //nombre de cartes
     private final int NUMBER_OF_CARDS = 16;
     private final int NUMBER_OF_DISTINCT_CARDS = NUMBER_OF_CARDS/2;
@@ -58,7 +58,8 @@ public class CardMatchingGame extends JFrame implements  ActionListener {
 
 
     //constructeur
-    public CardMatchingGame() {
+    public CardMatchingGame(String playerName) {
+        this.playerName = playerName;
         initCards();
         build();
         try {
@@ -93,7 +94,7 @@ public class CardMatchingGame extends JFrame implements  ActionListener {
 
 //initscore
         numOfFlips = 0;
-        scoreLabel.setText("Flips: " + numOfFlips);
+        scoreLabel.setText("Movimientos: " + numOfFlips);
         numOfMatches = 0;
         initCards();
         this.remove(gamePanel);
@@ -118,17 +119,18 @@ public class CardMatchingGame extends JFrame implements  ActionListener {
 //        this.add(menuPanel,BorderLayout.EAST);
         this.pack();
     }
-
+    
     private void buildScorePanel() {
-        scoreLabel = new JLabel("Flips : " + numOfFlips);
-        scoreLabel.setBorder(new EmptyBorder(0,10,0,10));
-//        scoreLabel.setHorizontalTextPosition(SwingConstants.CENTER);
-
-        scoreLabel.setFont(new Font("Monospaced", Font.BOLD, 40));
-        scorePanel = new JPanel(new BorderLayout());
-//        scorePanel.setSize(menuPanel.getWidth(),menuPanel.getHeight());
-        scorePanel.add(scoreLabel,BorderLayout.CENTER);
-    }
+    scoreLabel = new JLabel("Movimientos: " + numOfFlips);
+    scoreLabel.setBorder(new EmptyBorder(0,10,0,10));
+    scoreLabel.setFont(new Font("Monospaced", Font.BOLD, 30));
+    JLabel playerNameLabel = new JLabel("Jugador: " + playerName);
+    playerNameLabel.setBorder(new EmptyBorder(0,10,0,10));
+    playerNameLabel.setFont(new Font("Monospaced", Font.BOLD, 30));
+    scorePanel = new JPanel(new BorderLayout());
+    scorePanel.add(scoreLabel, BorderLayout.CENTER);
+    scorePanel.add(playerNameLabel, BorderLayout.NORTH);
+}
 
     //construire paneau du jeu
     private void buildGamePanel(){
@@ -150,12 +152,12 @@ public class CardMatchingGame extends JFrame implements  ActionListener {
     //Construction paneau du menu
     private void buildMenuPanel(){
         Font btnFont = new Font("Monospaced", Font.BOLD, 20);
-        restartBtn = new JButton("\u21BA" + " Restart ");
+        restartBtn = new JButton("\u21BA" + " Reiniciar ");
         restartBtn.setFont(btnFont);
         restartBtn.addActionListener(this);
         restartBtn.setMargin(new Insets(2,0,2,0));
 
-        exitBtn = new JButton("  \u274C" + " Quit  ");
+        exitBtn = new JButton("\u274C" + " Quitar    ");
         exitBtn.setFont(btnFont);
         exitBtn.addActionListener(this);
         exitBtn.setMargin(new Insets(2,0,2,0));
@@ -187,7 +189,7 @@ public class CardMatchingGame extends JFrame implements  ActionListener {
             if ( card.isFlippable() && card != currentlyFlipped1){
                 card.flip();
                 numOfFlips++;
-                this.scoreLabel.setText("Flips: "+ numOfFlips);
+                this.scoreLabel.setText("Movimientos: "+ numOfFlips);
                 if (numOfFlips % 2 == 1)
                     currentlyFlipped1 = card;
                 else {
